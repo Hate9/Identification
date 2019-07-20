@@ -1,0 +1,3 @@
+[submodule "IntuitiveRNG"]
+	path = IntuitiveRNG
+	url = https://github.com/Hate9/IntuitiveRNG
