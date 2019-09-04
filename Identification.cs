@@ -6,11 +6,16 @@ using System.Threading.Tasks;
 
 namespace Hate9
 {
-    public static class Identification
+    public class Identification
     {
-        private static List<int> usedIds = new List<int>();
+        private List<int> usedIds;
 
-        public static int CreateId()
+        public Identification()
+        {
+            usedIds = new List<int>();
+        }
+
+        public int CreateId()
         {
             int tempId = IntuitiveRNG.realRNG.Next(0, int.MaxValue);
             while (usedIds.Contains(tempId))
@@ -21,12 +26,12 @@ namespace Hate9
             return tempId;
         }
 
-        public static bool IdExists(int id)
+        public bool IdExists(int id)
         {
             return usedIds.Contains(id);
         }
 
-        public static void DeleteId(int id)
+        public void DeleteId(int id)
         {
             usedIds.Remove(id);
         }
