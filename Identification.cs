@@ -9,18 +9,27 @@ namespace Hate9
     public class Identification
     {
         private List<int> usedIds;
+        private Random rng;
 
-        public Identification()
+        public Identification(int seed = -1)
         {
             usedIds = new List<int>();
+            if (seed == -1)
+            {
+                rng = new Random();
+            }
+            else
+            {
+                rng = new Random(seed);
+            }
         }
 
         public int CreateId()
         {
-            int tempId = IntuitiveRNG.realRNG.Next(0, int.MaxValue);
+            int tempId = rng.Next(0, int.MaxValue);
             while (usedIds.Contains(tempId))
             {
-                tempId = IntuitiveRNG.realRNG.Next(0, int.MaxValue);
+                tempId = rng.Next(0, int.MaxValue);
             }
             usedIds.Add(tempId);
             return tempId;
