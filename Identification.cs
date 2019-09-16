@@ -24,15 +24,31 @@ namespace Hate9
             }
         }
 
-        public int CreateId()
+        public int CreateId(int id = -1)
         {
-            int tempId = rng.Next(0, int.MaxValue);
-            while (usedIds.Contains(tempId))
+            int tempId;
+            if (id != -1)
+            {
+                if (IdExists(id))
+                {
+                    return -1;
+                }
+                else
+                {
+                    usedIds.Add(id);
+                    return id;
+                }
+            }
+            else
             {
                 tempId = rng.Next(0, int.MaxValue);
+                while (IdExists(tempId))
+                {
+                    tempId = rng.Next(0, int.MaxValue);
+                }
+                usedIds.Add(tempId);
+                return tempId;
             }
-            usedIds.Add(tempId);
-            return tempId;
         }
 
         public bool IdExists(int id)
