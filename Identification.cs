@@ -9,6 +9,7 @@ namespace Hate9
     public class Identification
     {
         private List<int> usedIds;
+        public List<int> ids => usedIds;
         private Random rng;
 
         public Identification(int seed = -1)
