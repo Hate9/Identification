@@ -62,6 +62,10 @@ namespace Hate9
             }
             else
             {
+                if (ids.Count == (int.MaxValue + Math.Abs(int.MinValue) + 1))
+                {
+                    throw new Exception("All possible id values in use.");
+                }
                 tempId = rng.Next(0, int.MaxValue);
                 while (IdExists(tempId))
                 {
