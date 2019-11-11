@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hate9
 {
     public class Identification
     {
         private List<int> usedIds;
-        public List<int> ids => usedIds;
         private Random rng;
 
+        /// <summary>A read-only copy of the <see cref="Identification"/>'s id registry, representing the ids currently in use.</summary>
+        public List<int> ids => usedIds;
+
+        /// <summary>Initializes a new Identification object.</summary>
+        /// <param name="seed">If specified, used as the seed for the internal Random object, which is used to create new ids.</param>
         public Identification(int seed = -1)
         {
             usedIds = new List<int>();
@@ -25,19 +26,38 @@ namespace Hate9
             }
         }
 
-        public int CreateId(int id = -1)
+        /// <summary>Addes the specified id to the <see cref="Identification"/>'s registry.</summary>
+        /// <param name="id">The specified id.</param>
+        /// <returns>a <see cref="bool"/> representing the success or failure of the operation.</returns>
+        public bool CreateId(int id)
+        {
+            try
+            {
+                CreateId((int?)id);
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>Creates and returns a new id in the <see cref="Identification"/>'s registry, which can be specified if necessary.</summary>
+        /// <param name="id">The specified id.</param>
+        /// <returns>the generated id.</returns>
+        private int CreateId(int? id = null)
         {
             int tempId;
-            if (id != -1)
+            if (id != null)
             {
-                if (IdExists(id))
+                if (IdExists((int)id))
                 {
-                    return -1;
+                    throw new ArgumentException("id is already in use.");
                 }
                 else
                 {
-                    usedIds.Add(id);
-                    return id;
+                    usedIds.Add((int)id);
+                    return (int)id;
                 }
             }
             else
@@ -52,14 +72,20 @@ namespace Hate9
             }
         }
 
+        /// <summary>Checks whether or not the specified id currently exists in the <see cref="Identification"/>'s registry.</summary>
+        /// <param name="id">The specified id.</param>
+        /// <returns><see cref="true"/> if id is found; otherwise, <see cref="false"/>.</returns>
         public bool IdExists(int id)
         {
             return usedIds.Contains(id);
         }
 
-        public void DeleteId(int id)
+        /// <summary>Removes the specified id from the <see cref="Identification"/>'s registry.</summary>
+        /// <param name="id">The specified id.</param>
+        /// <returns><see cref="true"/> if id is successfully removed; otherwise, <see cref="false"/>. This method also returns <see cref="false"/> if the id is not found in the registry.</returns>
+        public bool DeleteId(int id)
         {
-            usedIds.Remove(id);
+            return usedIds.Remove(id);
         }
     }
 }
