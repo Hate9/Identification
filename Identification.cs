@@ -45,7 +45,7 @@ namespace Hate9
         /// <summary>Creates and returns a new id in the <see cref="Identification"/>'s registry, which can be specified if necessary.</summary>
         /// <param name="id">The specified id.</param>
         /// <returns>the generated id.</returns>
-        private int CreateId(int? id = null)
+        public int CreateId(int? id = null)
         {
             int tempId;
             if (id != null)
