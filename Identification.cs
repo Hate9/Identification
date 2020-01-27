@@ -62,7 +62,8 @@ namespace Hate9
             }
             else
             {
-                if (ids.Count == (int.MaxValue + Math.Abs(int.MinValue) + 1))
+                ulong val = ((ulong)int.MaxValue * 2 + 2);
+                if ((ulong)ids.Count == val)
                 {
                     throw new Exception("All possible id values in use.");
                 }
